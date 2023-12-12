@@ -1,7 +1,17 @@
 version: '3.7'
 volumes:
-    # mysql_data:
     wordpress_data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/sben-ela/data/wordpress
+            o: bind
+    mariadb_data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/sben-ela/data/mariadb
+            o: bind
 
 
 services:
@@ -16,27 +26,25 @@ services:
         volumes:
             - wordpress_data:/var/www/wordpress
         restart: always
-
-    # database:
-    #     image: mysql:5.7
-    #     volumes:
-    #         - mysql_data:/var/lib/mysql
-    #     restart: always
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: mypassword
-    #         MYSQL_DATABASE: wordpress
-    #         MYSQL_USER: wordpressuser
-    #         MYSQL_PASSWORD: wordpress
+        env_file:
+            - .env
 
     wordpress:
         build: ./wordpress
-        # depends_on:
-        #     - database
+        container_name: wordpress
         image: wordpress
         volumes:
             - wordpress_data:/var/www/wordpress
         restart: always
-        environment:
-            WORDPRESS_DB_HOST: database:3306
-            WORDPRESS_DB_USER: wordpressuser
-            WORDPRESS_DB_PASSWORD: wordpress
+        env_file:
+            - .env
+
+    database:
+        container_name: database
+        build: ./mariadb
+        image: mariadb
+        restart: always
+        volumes:
+            - mariadb_data:/var/lib/mysql 
+        env_file:
+            - .env
