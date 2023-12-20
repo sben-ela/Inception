@@ -42,9 +42,24 @@ Collaboration Platform: Docker Hub serves as a collaboration platform for the Do
 
 ## Docker Registry:
 
-Generic Term: "Docker Registry" is a generic term that refers to any server or service that stores and manages Docker images. Docker Hub is one specific implementation of a Docker registry, but there are other registries as well.
+Generic Term:
+"Docker Registry" is a generic term that refers to any server or service that stores and manages Docker images. Docker Hub is one specific implementation of a Docker registry, but there are other registries as well.
+When you use the docker pull or docker run commands, Docker pulls the required images from your configured registry. When you use the docker push command, Docker pushes your image to your configured registry.
 
-Private Registries: Organizations may choose to set up their private Docker registries to store and manage custom images internally. Private registries provide control over access, security, and image distribution within an organization. Docker allows users to use public registries (like Docker Hub) or set up their private registries.
+Private Registries:
+Organizations may choose to set up their private Docker registries to store and manage custom images internally. Private registries provide control over access, security, and image distribution within an organization. Docker allows users to use public registries (like Docker Hub) or set up their private registries.
+* Set Up a Private Docker Registry on Linux : https://earthly.dev/blog/private-docker-registry/
 
-Docker Trusted Registry (DTR): Docker Trusted Registry is an enterprise-grade, commercially supported private registry solution provided by Docker, Inc. It offers additional features such as image signing, content trust, and integration with Docker Enterprise.
-* A Guide to Docker Private Registry : "https://www.baeldung.com/ops/docker-private-registry"
+Docker Trusted Registry (DTR):
+Docker Trusted Registry is an enterprise-grade, commercially supported private registry solution provided by Docker, Inc. It offers additional features such as image signing, content trust, and integration with Docker Enterprise.
+* A Guide to Docker Private Registry : https://www.baeldung.com/ops/docker-private-registry
+
+
+## Docker objects :
+
+When you use Docker, you are creating and using images, containers, networks, volumes, plugins, and other objects. This section is a brief overview of some of those objects.
+
+* Images
+An image is a read-only template with instructions for creating a Docker container. Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the ubuntu image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run.
+
+You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
