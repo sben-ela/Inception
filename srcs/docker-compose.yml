@@ -27,7 +27,7 @@ services:
             - wordpress_data:/var/www/wordpress
         restart: always
         env_file:
-            - .env
+            - ../.env
         networks:
             - net_work
 
@@ -41,7 +41,7 @@ services:
             - wordpress_data:/var/www/wordpress
         restart: always
         env_file:
-            - .env
+            - ../.env
         networks:
             - net_work
 
@@ -53,7 +53,7 @@ services:
         volumes:
             - mariadb_data:/var/lib/mysql 
         env_file:
-            - .env
+            - ../.env
         networks:
             - net_work
 
