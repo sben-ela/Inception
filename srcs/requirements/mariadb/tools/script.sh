@@ -1,17 +1,16 @@
-service mysql start
+service mariadb start
 
 sleep 2
 
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS wordpress;"
-mysql -u root -e  "CREATE USER IF NOT EXISTS '${DBUSER}'@'%' IDENTIFIED BY '${DBUSERPASS}';"
-mysql -u root -e "GRANT ALL PRIVILEGES ON wordpress.* TO '${DBUSER}'@'%';FLUSH PRIVILEGES;"
+mariadb -e "CREATE DATABASE IF NOT EXISTS $DBNAME;"
+mariadb -e "CREATE USER IF NOT EXISTS '$DBUSER'@'%' IDENTIFIED BY '$DBUSERPASS';"
+mariadb -e "GRANT ALL PRIVILEGES ON \`$DBNAME\`.* TO '$DBUSER'@'%';"
+mariadb -e "FLUSH PRIVILEGES;"
 
-
-mysqladmin -u root shutdown
+service mariadb stop
 
 echo "database have been created..."
 
+sleep 2
+
 mysqld_safe
-
-
-# https://youtu.be/xiUTqnI6xk8?si=Jw3DDYc0JuNJbTGE

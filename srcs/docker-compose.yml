@@ -25,7 +25,7 @@ services:
             - wordpress
         volumes:
             - wordpress_data:/var/www/wordpress
-        restart: always
+        restart: on-failure
         env_file:
             - ../.env
         networks:
@@ -36,20 +36,20 @@ services:
         container_name: wordpress
         image: wordpress
         depends_on:
-            - database
+            - mariadb
         volumes:
             - wordpress_data:/var/www/wordpress
-        restart: always
+        restart: on-failure
         env_file:
             - ../.env
         networks:
             - net_work
 
-    database:
-        container_name: database
+    mariadb:
+        container_name: mariadb
         build: requirements/mariadb
         image: mariadb
-        restart: always
+        restart: on-failure
         volumes:
             - mariadb_data:/var/lib/mysql 
         env_file:
