@@ -1,6 +1,7 @@
-service mariadb start
+iservice mariadb start
 
-sleep 2
+sleep 3
+
 
 mariadb -e "CREATE DATABASE IF NOT EXISTS $DBNAME;"
 mariadb -e "CREATE USER IF NOT EXISTS '$DBUSER'@'%' IDENTIFIED BY '$DBUSERPASS';"
